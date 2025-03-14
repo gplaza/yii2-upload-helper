@@ -1,0 +1,17 @@
+{
+    "name": "gplaza/yii2-upload-helper",
+    "description": "Yii2 utilities for upload",
+    "type": "yii2-extension",
+    "keywords": ["yii2", "extension", "upload"],
+    "license": "GPL2",
+    "authors": [{
+            "name": "Gilles Grandguillaume",
+            "email": "gilles.grandguillaume@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "gplaza\\uploadutil\\": "src"
+        }
+    }
+}
