@@ -4,17 +4,22 @@ namespace gplaza\uploadutil\behaviors;
 
 use Yii;
 use yii\helpers\Url;
+use yii\helpers\Html;
 use yii\base\Behavior;
+use yii\helpers\ArrayHelper;
+use gplaza\uploadutil\models\DocumentoUpload;
 
 class DocumentUploadBehavior extends Behavior
 {
-    public function getDocumentoUpload($info, $archivos, $deleteUrl)
+    public $deleteUrl;
+
+    public function getUploads($info)
     {
-        if (!empty($archivos)) {
+        if (!empty($this->getDocumentoUploads())) {
 
             $documentos = [];
 
-            foreach ($archivos as $archivo) {
+            foreach ($this->getDocumentoUploads() as $archivo) {
 
                 $extension = $archivo->extension;
                 $size = @filesize(Yii::getAlias('@app/uploads/' . $archivo->realFilename));
@@ -27,7 +32,7 @@ class DocumentUploadBehavior extends Behavior
                         $documentos[] = [
                             'caption' => $archivo->descripcion_archivo,
                             'size' => $size,
-                            'url' => Url::to([$deleteUrl]),
+                            'url' => Url::to([$this->deleteUrl]),
                             'key' => $archivo->id,
                         ];
                     } else {
@@ -59,7 +64,7 @@ class DocumentUploadBehavior extends Behavior
                             'type' => $type,
                             'caption' => $archivo->descripcion_archivo,
                             'size' => $size,
-                            'url' => Url::to([$deleteUrl]),
+                            'url' => Url::to([$this->deleteUrl]),
                             'key' => $archivo->id,
                         ];
                     }
@@ -70,5 +75,29 @@ class DocumentUploadBehavior extends Behavior
         }
 
         return false;
+    }
+
+    public function getDocumentoUploadArray()
+    {
+        $link = [];
+
+        if (!empty($this->getDocumentoUploads())) {
+            foreach ($this->getDocumentoUploads() as $documento) {
+                $link[]["link"] = Html::a($documento->descripcion_archivo, Url::to('@web/uploads/' . $documento->realFilename, 'https'), ["download" => $documento->descripcion_archivo]);
+            }
+        }
+
+        return $link;
+    }
+    
+    public function getDocumentoUploadText()
+    {
+        $links = ArrayHelper::getColumn($this->getDocumentoUploadArray(), 'link');
+        return implode(',', $links);
+    }
+
+    public function getDocumentoUploads()
+    {
+        return DocumentoUpload::findAll(["model" => get_class($this->owner), "model_id" => $this->id]);
     }
 }
