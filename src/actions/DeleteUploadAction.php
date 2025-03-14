@@ -1,6 +1,6 @@
 <?php
 
-namespace gplaza\uploadutil\models;
+namespace gplaza\uploadutil\actions;
 
 use Yii;
 use yii\base\Action;
