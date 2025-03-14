@@ -98,6 +98,6 @@ class DocumentUploadBehavior extends Behavior
 
     public function getDocumentoUploads()
     {
-        return DocumentoUpload::findAll(["model" => get_class($this->owner), "model_id" => $this->id]);
+        return DocumentoUpload::findAll(["model" => get_class($this->owner), "model_id" => $this->owner->id]);
     }
 }
