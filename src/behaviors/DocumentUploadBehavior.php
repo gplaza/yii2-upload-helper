@@ -44,6 +44,9 @@ class DocumentUploadBehavior extends Behavior
                             case "xlsx":
                                 $type = "office";
                                 break;
+                            case "docx":
+                                $type = "office";
+                                break;
                             case "txt":
                                 $type = "text";
                                 break;
