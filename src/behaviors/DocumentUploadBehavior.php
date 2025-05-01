@@ -13,7 +13,7 @@ class DocumentUploadBehavior extends Behavior
 {
     public $deleteUrl;
 
-    public function getUploads($info)
+    public function getUploads($info, $readOnly = false)
     {
         if (!empty($this->getDocumentoUploads())) {
 
@@ -32,7 +32,7 @@ class DocumentUploadBehavior extends Behavior
                         $documentos[] = [
                             'caption' => $archivo->descripcion_archivo,
                             'size' => $size,
-                            'url' => Url::to([$this->deleteUrl]),
+                            'url' => $readOnly ? '' : Url::to([$this->deleteUrl]),
                             'key' => $archivo->id,
                         ];
                     } else {
@@ -67,7 +67,7 @@ class DocumentUploadBehavior extends Behavior
                             'type' => $type,
                             'caption' => $archivo->descripcion_archivo,
                             'size' => $size,
-                            'url' => Url::to([$this->deleteUrl]),
+                            'url' => $readOnly ? '' : Url::to([$this->deleteUrl]),
                             'key' => $archivo->id,
                         ];
                     }
