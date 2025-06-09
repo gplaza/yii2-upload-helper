@@ -35,8 +35,15 @@ class DeleteUploadAction extends Action
             $fileName = pathinfo($documento->url_archivo_anexo, PATHINFO_BASENAME);
             $path = Yii::getAlias($this->uploadPath) . $fileName;
 
-            if (!unlink($path)) {
-                $error = 'No se encuentra el archivo en el sistema.';
+            $usedArchive = DocumentoUpload::find()
+                ->where(["url_archivo_anexo" => $documento->url_archivo_anexo])
+                ->andWhere(['!=', 'id', $id])
+                ->exists();
+
+            if (!$usedArchive) {
+                if (!unlink($path)) {
+                    $error = 'No se encuentra el archivo en el sistema.';
+                }
             }
 
             if (!$documento->delete()) {
