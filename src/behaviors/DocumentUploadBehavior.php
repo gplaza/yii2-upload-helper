@@ -29,7 +29,7 @@ class DocumentUploadBehavior extends Behavior
                 }
                 if ($info == 'config' && $size !== false) {
                     $extension = strtolower($extension);
-                    if ($extension === 'jpg' || $extension === 'jpeg' || $extension === 'gif' || $extension === 'png') {
+                    if ($extension === 'jpg' || $extension === 'jpeg' || $extension === 'gif' || $extension === 'png' || $extension === 'jfif') {
                         $documentos[] = [
                             'caption' => $archivo->descripcion_archivo,
                             'size' => $size,
