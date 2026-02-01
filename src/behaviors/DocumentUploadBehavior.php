@@ -42,17 +42,18 @@ class DocumentUploadBehavior extends Behavior
                             case "pdf":
                                 $type = "pdf";
                                 break;
+                            case "xls":
                             case "xlsx":
-                                $type = "office";
-                                break;
                             case "docx":
                                 $type = "office";
                                 break;
                             case "txt":
-                                $type = "text";
-                                break;
                             case "sql":
                                 $type = "text";
+                                break;
+                            case "dwg":
+                            case "dxf":
+                                $type = "cad";
                                 break;
                             case "html":
                                 $type = "html";
@@ -93,7 +94,7 @@ class DocumentUploadBehavior extends Behavior
 
         return $link;
     }
-    
+
     public function getDocumentoUploadText()
     {
         $links = ArrayHelper::getColumn($this->getDocumentoUploadArray(), 'link');
