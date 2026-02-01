@@ -6,7 +6,7 @@ use yii\web\AssetBundle;
 
 class cadViewerAsset extends AssetBundle
 {
-   public $sourcePath = '@vendor/gplaza/yii2-upload-helper/assets';
+   public $sourcePath = '@vendor/gplaza/yii2-upload-helper/src/assets';
     
     public $js = [
         'js/cad-viewer.js',
